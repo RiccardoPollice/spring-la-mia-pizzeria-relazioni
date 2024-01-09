@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table
-public class pizzeria {
+public class Pizzeria {
 @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
