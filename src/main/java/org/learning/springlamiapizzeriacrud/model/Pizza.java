@@ -1,20 +1,35 @@
 package org.learning.springlamiapizzeriacrud.model;
 
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "pizze")
-public class Pizzeria {
+public class Pizza {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @NotEmpty
+    @Column(nullable = false)
     private String name;
-    private String description;
-
-    @Lob
-    private String photo;
+    @NotEmpty
+    @Column(nullable = false)
+    private  String description;
+    @NotNull
+    @Range(min = 0)
     @Column(nullable = false)
     private BigDecimal price;
+    private String url;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -32,19 +47,19 @@ public class Pizzeria {
         this.description = description;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
