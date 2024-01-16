@@ -11,14 +11,13 @@ public class Pizza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotEmpty
+
     @Column(nullable = false)
     private String name;
-    @NotEmpty
+
     @Column(nullable = false)
     private  String description;
     @NotNull
-    @Range(min = 0)
     @Column(nullable = false)
     private BigDecimal price;
     private String url;
