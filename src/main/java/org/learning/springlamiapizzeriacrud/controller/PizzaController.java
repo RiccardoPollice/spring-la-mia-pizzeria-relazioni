@@ -63,7 +63,7 @@ public class PizzaController {
         }
     }
 
-    @PostMapping
+    @PostMapping ("/edit/{id}")
     public String update(@PathVariable Integer id, @Validated @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
         Optional<Pizza> result = pizzaRepository.findById(id);
         if (result.isPresent()) {
