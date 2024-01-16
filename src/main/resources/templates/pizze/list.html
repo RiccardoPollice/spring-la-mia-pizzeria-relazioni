@@ -34,9 +34,9 @@
 
             <td>
                 <div class="d-flex justify-content-between align-center">
-                    <a class="btn btn-warning margine  button-custom" th:href="@{/pizze/show/{id}(id=${pizza.id})}">Dettagli</a>
+                    <a class="btn btn-success margine  button-custom" th:href="@{/pizze/show/{id}(id=${pizza.id})}">Dettagli</a>
 
-                    <a class="btn btn-warning margine  button-custom" th:href="@{/pizze/edit/{id}(id=${pizza.id})}">Modifica</a>
+                    <a class="btn btn-secondary margine  button-custom" th:href="@{/pizze/edit/{id}(id=${pizza.id})}">Modifica</a>
 
                     <form
                             th:action="@{/pizze/delete/{id}(id=${pizza.id})}"

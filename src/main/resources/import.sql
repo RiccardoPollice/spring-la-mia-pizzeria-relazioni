@@ -1,2 +1,2 @@
-INSERT INTO pizze(name, description, url, price ) VALUES ('Pizza margherita', 'Pizza sublime con pomodoro e mozzarella', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Pizza_Margherita_stu_spivack.jpg/1280px-Pizza_Margherita_stu_spivack.jpg',4.00);
-INSERT INTO pizze(name, description, url, price ) VALUES ('Pizza diavola', 'Pizza preparata con pomodoro, mozzarella, salame calabrese', 'https://www.misya.info/wp-content/uploads/2007/08/Pizza-alla-diavola.jpg', 6.00);
+INSERT INTO pizze(name, description, url, price ) VALUES ('Pizza margherita', 'Pizza con pomodoro, mozzarella, basilico', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Pizza_Margherita_stu_spivack.jpg/1280px-Pizza_Margherita_stu_spivack.jpg',4.00);
+INSERT INTO pizze(name, description, url, price ) VALUES ('Pizza diavola', 'Pizza con pomodoro, mozzarella, salame', 'https://www.misya.info/wp-content/uploads/2007/08/Pizza-alla-diavola.jpg', 6.00);
