@@ -1,7 +1,6 @@
 package org.learning.springlamiapizzeriacrud.model;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
@@ -9,6 +8,7 @@ public class Offerta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false)
     private LocalDate startDate;
     private LocalDate endDate;
     private String title;

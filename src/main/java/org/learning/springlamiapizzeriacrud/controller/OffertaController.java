@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -38,8 +38,53 @@ public class OffertaController {
         }
     }
     @PostMapping("/create")
-    public String store(Offerta fromOfferta) {
+    public String store(@Validated @ModelAttribute("offerta") Offerta fromOfferta, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "offerte/create";
+        }
+        if (fromOfferta.getEndDate() != null && fromOfferta.getEndDate().isBefore(fromOfferta.getStartDate())) {
+            fromOfferta.setEndDate(fromOfferta.getStartDate().plusDays(30));
+        }
         Offerta storedOfferta = offertaRepository.save(fromOfferta);
         return "redirect:/pizze/show" + storedOfferta.getPizza().getId();
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        Optional<Offerta> result = offertaRepository.findById(id);
+        if (result.isPresent()){
+            offertaRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("redirectMessage", "offerta" + result.get().getTitle() + "delete");
+            return "redirect:/pizze/show/" + result.get().getPizza().getId();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id" + id + "not found");
+        }
+    }
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        Optional<Offerta> result = offertaRepository.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("offerta", result.get());
+            return "offerte/edit";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "offerta with id" + "not found");
+        }
+    }
+    @PostMapping("/edit/{id}")
+    public String update (@Validated @ModelAttribute("offerta") Offerta fromOfferta, @PathVariable Integer id, BindingResult bindingResult) {
+        Optional<Offerta> result = offertaRepository.findById(id);
+        if (result.isPresent()) {
+            Offerta offertaToEdit = result.get();
+            if (bindingResult.hasErrors()) {
+                return "/offerte/edit";
+            }
+            if (fromOfferta.getEndDate() != null && fromOfferta.getEndDate().isBefore(fromOfferta.getStartDate())) {
+                fromOfferta.setEndDate(fromOfferta.getStartDate().plusDays(30));
+            }
+            Offerta savedOfferta = offertaRepository.save(fromOfferta);
+            return "redirect:/pizze/show/" + result.get().getPizza().getId();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Offerta with id" + id + "not found");
+        }
     }
 }
